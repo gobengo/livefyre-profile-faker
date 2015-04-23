@@ -1,0 +1,251 @@
+{
+  "description": "A schema describing Livefyre's SSO profile format",
+  "type": "object",
+  "required": ["id", "display_name"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The userId of the user in your profile system. This must be unique amongst all users in your Network, and it must never change"
+    },
+    "display_name": {
+      "type": "string",
+      "description": "The display name of the user. This will be rendered with Livefyre Content posted by the user"
+    },
+    "name": {
+      "type": "object",
+      "properties": {
+        "formatted": {
+          "type": "string",
+          "description": "Full name of the user"
+        },
+        "first": {
+          "type": "string",
+          "description": "First name of the user"
+        },
+        "middle": {
+          "type": "string",
+          "description": "Middle name of the user"
+        },
+        "last": {
+          "type": "string",
+          "description": "Last name of the user"
+        }
+      }
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address of the user. This will be used when sending email alerts"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "URL to an avatar that should be used for the user. This should be a square image"
+    },
+    "profile_url": {
+      "type": "string",
+      "description": "URL to the user's profile page on your site"
+    },
+    "settings_url": {
+      "type": "string",
+      "description": "URL to a page where the user can configure their profile settings for your site"
+    },
+    "websites": {
+      "type": "array",
+      "maxItems": 2,
+      "items": [
+        {
+          "type": "string",
+          "description": "URL to an external website operated by the user"
+        }
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string",
+          "description": "A tag that should be applied to the User for organizational purposes (e.g. grouping, custom styling)"
+        }
+      ]
+    },
+    "location": {
+      "type": "string",
+      "description": "Where in the world the user spends most of their time"
+    },
+    "bio": {
+      "type": "string",
+      "description": "A description of the user, authored by the user"
+    },
+    "autofollow_conversations": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "enum": [
+            "true",
+            "false"
+          ]
+        }
+      ],
+      "description": "Whether the user would like to automatically 'follow' Livefyre Collections after they post in the Collection. When following a Collection, the user will get email alerts when other users participate"
+    },
+    "email_notifications": {
+      "type": "object",
+      "description": "Settings to configure the frequency of Livefyre Email notifications. Frequencies can be configured differently across different notification types. For each, 'immediately' means that emails will be sent for each activity. 'often' means that notifications will be rolled up and sent in batches. 'never' means notifications will never be sent for that activity.",
+      "properties": {
+        "comments": {
+          "description": "Notifications sent when other users post Content into Collections that this user is following",
+          "enum": [
+            "immediately",
+            "often",
+            "never"
+          ]
+        },
+        "moderator_comments": {
+          "description": "Notifications sent to moderators when other users post Content into any Collection in the Network",
+          "enum": [
+            "immediately",
+            "often",
+            "never"
+          ]
+        },
+        "moderator_flags": {
+          "description": "Notifications sent to moderators when other users flag Content in any Collection in the Network",
+          "enum": [
+            "immediately",
+            "often",
+            "never"
+          ]
+        },
+        "replies": {
+          "description": "Notifications sent when another user replies to this user's Content",
+          "enum": [
+            "immediately",
+            "often",
+            "never"
+          ]
+        },
+        "likes": {
+          "description": "Notifications sent when another user likes this user's Content",
+          "enum": [
+            "immediately",
+            "often",
+            "never"
+          ]
+        }
+      }
+    },
+    "display_rules": {
+      "type": "object",
+      "description": "Settings that configure which profile properties should be publicly visible to other users. Each property represents the visibility setting of the top-level profile property with the same name",
+      "properties": {
+        "bio": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          ]
+        },
+        "location": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          ]
+        },
+        "gender": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          ]
+        },
+        "name": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          ]
+        },
+        "image": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          ]
+        },
+        "remote_profile_url": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "moderator": {
+      "description": "Whether the user should have Moderator privileges throughout the Network",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "enum": [
+            "true",
+            "false"
+          ]
+        }
+      ]
+    },
+    "gravatar_disabled": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "enum": [
+            "true",
+            "false"
+          ]
+        }
+      ],
+      "description": "Whether to disable Livefyre's default fallback of using gravatar if no image_url is provided"
+    }
+  }
+}
