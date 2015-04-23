@@ -5,7 +5,8 @@
   "properties": {
     "id": {
       "type": "string",
-      "description": "The userId of the user in your profile system. This must be unique amongst all users in your Network, and it must never change"
+      "description": "The userId of the user in your profile system. This must be unique amongst all users in your Network, and it must never change",
+      "pattern": "^[a-zA-Z0-9._-]{1,64}$"
     },
     "display_name": {
       "type": "string",
